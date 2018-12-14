@@ -16,8 +16,6 @@ public class PlayerConnectionObject : NetworkBehaviour {
             return;
         }
 
-        Debug.Log("PlayerObject :: Start -- Spawning own personal unit");
-
         CmdSpawnMyUnit();
 	}
 	

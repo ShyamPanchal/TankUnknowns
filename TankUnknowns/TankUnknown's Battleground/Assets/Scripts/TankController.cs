@@ -25,8 +25,6 @@ public class TankController : NetworkBehaviour {
         {
             return;
         }
-
-        Debug.Log("Main Camera Set Active ... ");
         mainCamera.SetActive(true);
         spotLight.SetActive(true);
         mapCamera.SetActive(false);

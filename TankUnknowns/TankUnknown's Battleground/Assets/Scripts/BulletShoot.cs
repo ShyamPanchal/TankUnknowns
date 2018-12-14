@@ -18,6 +18,8 @@ public class BulletShoot : NetworkBehaviour
 
     public float fireTimer;
 
+
+
     // Use this for initialization
     void Start()
     {
@@ -64,6 +66,7 @@ public class BulletShoot : NetworkBehaviour
         Destroy(bullet, destroyTime);
     }
 
+
     ////////////////////// COMMANDS
     ///
 
@@ -79,4 +82,6 @@ public class BulletShoot : NetworkBehaviour
 
         Destroy(bullet, destroyTime);
     }
+
+
 }
