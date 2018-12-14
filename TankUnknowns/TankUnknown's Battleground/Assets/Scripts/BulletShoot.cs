@@ -77,10 +77,10 @@ public class BulletShoot : NetworkBehaviour
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.transform.position, new Quaternion(0, 90, 90, 0));
 
         bullet.GetComponent<Rigidbody>().velocity = this.transform.forward * bulletSpeed;
+        bullet.GetComponent<BulletScript>().sourcePlayer = this.gameObject;
+        bullet.GetComponent<BulletScript>().originalPosition = bulletSpawnPoint.transform.position;
 
         NetworkServer.Spawn(bullet);
-
-        Destroy(bullet, destroyTime);
     }
 
 

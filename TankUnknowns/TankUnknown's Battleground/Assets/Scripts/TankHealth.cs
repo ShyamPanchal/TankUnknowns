@@ -4,7 +4,8 @@ using UnityEngine.Networking;
 using System.Collections;
 public class TankHealth : NetworkBehaviour
 {
-    public const int maxHealth = 100;
+    public const int maxHealth = 5;
+    public GameObject explosion;
 
     [SyncVar(hook ="OnChangeHealth")]
     public int currentHealth = maxHealth;
@@ -22,7 +23,7 @@ public class TankHealth : NetworkBehaviour
             spawnPoints = FindObjectsOfType<NetworkStartPosition>();
         }
     }
-    public void TakeDamage(int amount)
+    public void TakeDamage(int amount, GameObject source)
     {
 
         if (!isServer)
@@ -30,17 +31,25 @@ public class TankHealth : NetworkBehaviour
             return;
         }
         currentHealth -= amount;
+        GetComponent<UIController>().DisplayHealth(currentHealth);
         if (currentHealth <= 0)
         {
+            if (source != null)
+            {
+                source.GetComponent<UIController>().KillSecure();
+            }
             if (destroyOnDeath)
             {
-                Destroy(gameObject);
+                Instantiate(explosion, transform.position, transform.rotation);
+                NetworkServer.Destroy(gameObject);
             }
             else
             {
                 currentHealth = maxHealth;
 
                 //called on the Server, will be invoked on the clients
+                GetComponent<UIController>().DisplayHealth(currentHealth);
+
                 RpcRespawn();
 
             }
